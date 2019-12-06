@@ -80,7 +80,7 @@ namespace InstagramApiSharp.Classes
 
         public static IResult<T> UnExpectedResponse<T>(HttpResponseMessage response, string json)
         {
-            if (string.IsNullOrEmpty(json))
+            if (string.IsNullOrEmpty(json) || response?.Content?.Headers?.ContentType.MediaType != "application/json")
             {
                 var resultInfo = new ResultInfo(ResponseType.UnExpectedResponse,
                     $"Unexpected response status: {response.StatusCode}");
@@ -101,7 +101,7 @@ namespace InstagramApiSharp.Classes
 
         public static IResult<T> UnExpectedResponse<T>(HttpResponseMessage response, string message, string json)
         {
-            if (string.IsNullOrEmpty(json))
+            if (string.IsNullOrEmpty(json) || response?.Content?.Headers?.ContentType.MediaType != "application/json")
             {
                 var resultInfo = new ResultInfo(ResponseType.UnExpectedResponse,
                     $"{message}\r\nUnexpected response status: {response.StatusCode}");
